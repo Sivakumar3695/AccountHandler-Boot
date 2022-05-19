@@ -20,6 +20,6 @@ A simple application with
 
 # How to run this application?
 1. Download and extract this file to src/main/resources
-2. Use application-dev.properties file and update property fields according to the development environment.
+2. Use [this](https://github.com/Sivakumar3695/AccountHandler-Boot/files/8732003/application-dev.txt) application-dev.properties file and update property fields according to the development environment.
 3. Build Command: _mvn package -Dspring.profiles.active=dev_
 4. Run command: _java -Dspring.profiles.active=dev -jar target/*.jar_
