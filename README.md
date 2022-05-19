@@ -6,12 +6,20 @@ A simple application with
 
 # Basic User Account Handling
 1. Facilitates easy sign in with Phone number and OTP option.
-2. Onboards the users quickly without pesting them to provide details that they can update later.
+2. Easy login with "sign-in with  Google option". Also, login page will load with customized sign-in button based on the previous logged in Google account due to the Google One-Tap sign-in implementation.
+3. Onboards users quickly without pesting them to provide details that they can update later.
+4. Multiple session handling with all-in-one place. Users can handle remote sessions easily by viewing their IP address, location and terminating sessions from remote devices.
 
  
 # What to expect in the future?
 1. More simplified sign-in options:
-  a. Sign-in with Google
-  b. Sign-in with Facebook
+  a. Sign-in with Facebook
 2. We are on path to couple this App as an Account Handler and User Session management in our multi-app microservice architecture. Hence, we will soon provide REST API options to show an user with the list of Application that he/she uses and the list of other applications that they can expore.
-3. Our roadmap also includes to handle multiple sessions across devices for a single user. In such cases, we will allow the user to know those session details (like session info, devices, etc) and handle them all in one place (for instance, logout from a remote device).
+3. Implementing OTP handling to verify user's mobile number and email address which will improve the app's security and reliability. Currently, due to the lack of OTP verification, we don't recomment users to provide sensitive information. However, in order to test the application, use random mobile number (for instance, 9876543210) and the default OTP (1234).
+4. **IMPORTANT FEATURE**: Our roadmap includes a critical feature to facilitate the utilization the logged-in session in AccountsHandler across all other applications from our app bundle. Moreover, further extensions of this work might focus on providing Identity service to other external applications also.
+
+# How to run this application?
+1. Download and extract this file to src/main/resources
+2. Use application-dev.properties file and update property fields according to the development environment.
+3. Build Command: _mvn package -Dspring.profiles.active=dev_
+4. Run command: _java -Dspring.profiles.active=dev -jar target/*.jar_
