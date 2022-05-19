@@ -1,6 +1,6 @@
 package com.application.acchandler.security.auth;
 
-import com.application.acchandler.model.Users;
+import com.application.acchandler.model.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

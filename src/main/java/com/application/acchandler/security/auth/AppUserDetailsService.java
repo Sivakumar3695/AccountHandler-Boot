@@ -1,6 +1,6 @@
 package com.application.acchandler.security.auth;
 
-import com.application.acchandler.model.UserRepository;
+import com.application.acchandler.model.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +20,6 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-        System.out.println("Hey, I reached here...");
         return new ApplicationUser(userRepository.findByPhoneNumber(phoneNumber));
     }
 }
