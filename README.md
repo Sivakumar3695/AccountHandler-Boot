@@ -17,6 +17,7 @@ A simple application with
 2. We are on path to couple this App as an Account Handler and User Session management in our multi-app microservice architecture. Hence, we will soon provide REST API options to show an user with the list of Application that he/she uses and the list of other applications that they can expore.
 3. Implementing OTP handling to verify user's mobile number and email address which will improve the app's security and reliability. Currently, due to the lack of OTP verification, we don't recomment users to provide sensitive information. However, in order to test the application, use random mobile number (for instance, 9876543210) and the default OTP (1234).
 4. **IMPORTANT FEATURE**: Our roadmap includes a critical feature to facilitate the utilization the logged-in session in AccountsHandler across all other applications from our app bundle. Moreover, further extensions of this work might focus on providing Identity service to other external applications also.
+5. Click [here](https://github.com/Sivakumar3695/AccountHandler-Boot/projects/1#column-18741064) to check our next set of features, enhancements, nice-to-have(s), issue-fixes and more.
 
 # How to run this application?
 1. Download and extract this file to src/main/resources
