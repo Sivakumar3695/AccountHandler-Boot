@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
@@ -137,52 +135,40 @@ public class UserController {
 
     @GetMapping(value = "/users/me/profile-picture")
     @ResponseBody
-    public ResponseEntity<Resource> getProfilePicture() throws Exception
+    public ResponseEntity<byte[]> getProfilePicture() throws Exception
     {
-
-        System.out.println("Hello, I need profile picture.");
-
-        String fileName = currentUserContext.get().getProfilePicture();
+        Users currentUser = currentUserContext.get();
+        String fileName = currentUser.getProfilePicture();
+        String extension = fileName.split("\\.")[1];
         if (fileName == null || fileName.isBlank())
             fileName = "default-profile-icon.jpg";
 
-        Resource file = storageService.loadAsResource(fileName);
-        return ResponseEntity
-                .ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
+        byte[] file = storageService.loadAsResource(currentUser, fileName);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf("image/"+ extension));
+        String respFileName = "Profile-Picture." + extension;
+        headers.setContentDisposition(ContentDisposition.attachment().filename(respFileName).build());
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(file, headers, HttpStatus.OK);
+
+        return responseEntity;
     }
 
     @PostMapping("/profile-picture")
     public void updateProfilePicture(@RequestParam("file") MultipartFile file) throws Exception
     {
-
         String fileName = null;
         Users user = currentUserContext.get();
-        try {
 
-            fileName =
-                    "Profile-Pic-"
-                    + user.getUserID().toString()
-                    + "-"
-                    + System.currentTimeMillis()
-                    + "-"
-                    + passwordEncoder.encode(user.getPhoneNumber().toString()).substring(0,10);
+        logger.info(file.getName());
+        logger.info(file.getContentType());
+        fileName = "Profile-Pic-" + user.getUserID().toString() + "-" + System.currentTimeMillis()
+                + "." + file.getContentType().split("/")[1];
+        logger.info(fileName);
+        fileName = storageService.store(user, file, fileName);
 
-            storageService.store(file, fileName);
-
-            user.setProfilePicture(fileName);
-            userUtils.saveUser(user);
-        }
-        catch (Exception e) {
-            if (fileName != null)
-            {
-                // in case of exception during the above operation, remove the file.
-                storageService.delete(fileName);
-            }
-            throw new CustomException("There is an error in processing your request.");
-        }
+        user.setProfilePicture(fileName);
+        userUtils.saveUser(user);
     }
 
     @PostMapping("/devices/{deviceId}/logout")

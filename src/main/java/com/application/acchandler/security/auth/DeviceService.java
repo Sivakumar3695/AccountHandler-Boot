@@ -9,6 +9,8 @@ import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CityResponse;
 import org.apache.logging.log4j.util.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.session.Session;
@@ -31,6 +33,7 @@ import static java.util.Objects.nonNull;
 @Component
 public class DeviceService {
 
+    private static final Logger logger = LoggerFactory.getLogger(DeviceService.class);
     private static final String UNKNOWN = "UNKNOWN";
 
     private DatabaseReader databaseReader;
@@ -137,9 +140,12 @@ public class DeviceService {
         return header.split(" *, *")[0];
     }
 
-    private String getIpLocation(String ip) throws IOException, GeoIp2Exception {
-
-        if (Objects.equals(ip, "0:0:0:0:0:0:0:1") || Objects.equals(ip, "127.0.0.1"))
+    private String getIpLocation(String ip) throws IOException, GeoIp2Exception
+    {
+        logger.info(ip);
+        if (Objects.equals(ip, "0:0:0:0:0:0:0:1")
+                || Objects.equals(ip, "127.0.0.1")
+                || Objects.equals(ip, "172.17.0.1")) // host docker ip
         {
             return "HOST device";
         }

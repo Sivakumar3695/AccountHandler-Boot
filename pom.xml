@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.application.acchandler</groupId>
 	<artifactId>Accounts-SSO-Provider</artifactId>
-<!--	<version>0.0.1</version>-->
+	<version>0.0.1</version>
 	<name>AccountHandler</name>
 	<description>Account Handler for MyApps</description>
 	<properties>
@@ -25,6 +25,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

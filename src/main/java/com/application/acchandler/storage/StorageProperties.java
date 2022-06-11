@@ -10,15 +10,10 @@ public class StorageProperties {
 	 * Folder location for storing files
 	 */
 
-	@Value("media-storage-location")
-	private String location;
+	@Value("${media.storage.service}")
+	private String ip;
 
 	public String getLocation() {
-		return location;
+		return ip;
 	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 }
