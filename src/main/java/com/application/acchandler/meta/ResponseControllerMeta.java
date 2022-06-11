@@ -51,6 +51,7 @@ public class ResponseControllerMeta {
         if (responseJson == null) responseJson = new JSONObject();
 
         String uri = request.getRequestURI();
+        uri = uri.replaceAll("\\/api\\/v1", "");
         uri = uri.replaceAll("\\/(?=[a-zA-Z]*\\d)[a-zA-Z\\d-]+", "/{ID}");
 
         logger.info(uri);

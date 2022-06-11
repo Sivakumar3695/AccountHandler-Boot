@@ -1,5 +1,6 @@
 package com.application.acchandler.storage;
 
+import com.application.acchandler.model.users.Users;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,16 +11,16 @@ public interface StorageService {
 
 	void init();
 
-	void store(MultipartFile file, String fileName);
+	String store(Users user, MultipartFile file, String fileName);
 
 	void delete(String fileName) throws Exception;
-
-	Stream<Path> loadAll();
-
+//
+//	Stream<Path> loadAll();
+//
 	Path load(String filename);
-
-	Resource loadAsResource(String filename);
-
-	void deleteAll();
+//
+	byte[] loadAsResource(Users user, String filename) throws Exception;
+//
+//	void deleteAll();
 
 }
